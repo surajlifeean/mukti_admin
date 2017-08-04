@@ -21,3 +21,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::resource('customers','customers');
+
+Route::resource('customerdetails','DetailsController');
+
+Route::get('/download','DownloadcsvController@download');
+
+Route::get('/register', 'customers@create');
+

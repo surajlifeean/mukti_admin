@@ -1,6 +1,15 @@
+
+
+
+
 @extends('layouts.app')
 
+
+
+
+
 @section('content')
+
 <div id="wrapper">
 
     <!-- Navigation -->
@@ -71,81 +80,126 @@
                     <li>
                         <a href="#" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
-                     <li>
-                          <a href="#"><i class="fa fa-sitemap fa-fw"></i> Options<span class="fa arrow"></span></a>
-                          <ul class="nav nav-second-level">
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> Manage Customer<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
                             <li>
-                                <a href="{{route('customers.index')}}">Bulk Upload</a>
+                                <a href="#">Bulk Upload</a>
                             </li>
                             <li>
-                                <a href="{{route('customers.index')}}">Download Report</a>
-                            </li>
-                            <li>
-                                <a href="{{route('customers.index')}}">View Customers</a>
-                            </li>
-                            <li>
-                                <a href="{{route('customers.index')}}">Register Customers</a>
-                            </li>
-
-                           </ul>
-                            <li>
-                                <a href="#">Finance <span class="fa arrow"></span></a>
+                                <a href="#">Delete Customer <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
-                                        <a href="#">Daily Cash Book</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Bank Deposit Report</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Dividend Report</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Revenue Report</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Expenses Report</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Capital Inflow Report</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Daily Cash Book</a>
+                                        <a href="#">Collapse Group</a>
                                     </li>
                                 </ul>
                             </li>
-                             <li>
-                                <a href="#">Groups<span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="#">View Groups</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                        
+                        </ul>
                     </li>
                 </ul>
 
             </div>
         </div>
+
+        
     </nav>
 
-    <!-- Page Content -->
-    <div id="page-wrapper">
-        <div class="container-fluid">
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">MUKTI</h1>
-                </div>
-            </div>
+ <div class="container">
+<div class="row">
+  <div class="col-md-3 col-md-offset-2">
+    {{Form::open(['route'=>['customerdetails.store'],'method'=>'POST'])}}
 
-            <!-- ... Your content goes here ... -->
+     {{Form::label('searchby','Search By')}}
 
-        </div>
+    <select class="form-control searchby" name="searchby">
+    
+     
+          <option value="name">Name</option>
+          
+          <option value="city">Place</option>
+
+
+          <option value="city">Customer ID</option>
+        
+    </select>
+  </div>
+
+  <div class="col-md-3">  
+<b>
+      <p>Search Data</p>  </b>
+      {{Form::text('name',null,['class'=>'form-control'])}}
+
+  </div>
+
+  <div class="col-md-2">
+      {{Form::submit('search',['class'=>'btn btn-primary','style'=>'margin-top:25px'])}}
+
+    {{Form::close()}}
     </div>
+<div class="col-md-1">
+    <button type="button" class="btn btn-default" aria-label="Left Align">Add New
+  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+</button>
+</div>
+ </div>
 
+
+
+<table class="table table-striped">
+   		   		   		 
+  @foreach($matchinglist as $list)
+     <tr><td>
+    <div class="row">
+       <div class="col-md-8 col-md-offset-2" >
+         <div class="list">
+           <h3>{{ucwords($list->name)}}  </h3>
+             <p>
+    Resident of:{{$list->address}},
+   	{{$list->city}},
+   	{{$list->pin}},
+   	{{$list->state}},
+   	{{$list->country}}.<br>
+   	Contact No:{{$list->phone_no}}<br>
+
+
+    @if($list->group_id)
+     <b>SHG:{{$list->group_id}}</b>
+    @endif
+    
+	Joined At:{{date('jS M, Y', strtotime($list->created_at))}}
+   
+              <a class="btn" href="{{route('customerdetails.show',$list->id)}}" role="button"><span class="glyphicon glyphicon-list-alt"></span></a>
+              
+              
+              <a class="btn" href="{{route('customerdetails.edit',$list->id)}}" role="button"><span class=" glyphicon glyphicon-pencil"></span></a>
+
+              
+              @if($list->status=="active")
+              <a class="btn" href="{{route('unregcust.show',$list->id)}}" role="button"><span class="glyphicon glyphicon-trash"></span></a>
+              @endif
+
+              @if($list->loan_alloted==1)
+              <a class="btn" href="{{route('customerdetails.show',$list->id)}}" role="button"><span class="glyphicon glyphicon-stats"></span></a>
+              @endif
+              </p>
+
+              
+              <hr>
+         </div>
+       </div>
+
+    </div>
+       		</td></tr>
+       @endforeach
+
+       
+  </table>
+
+  </div>
 </div>
 
 @endsection
+
+
+
