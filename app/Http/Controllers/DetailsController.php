@@ -12,7 +12,9 @@ use App\addressdetail;
 
 use App\otherdetail;
 
+use App\document;
 
+use Image;
 
 use Illuminate\Http\Request;
 
@@ -75,6 +77,8 @@ class DetailsController extends Controller
 
         $identitydetail->created_at=$request->created_at;
 
+        $identitydetail->updated_at=$request->created_at;
+        
 
         if($request->idproof=='others')
 
@@ -109,6 +113,11 @@ class DetailsController extends Controller
 
           $addressdetail->customer_id =$identitydetail->id;
 
+          $addressdetail->created_at=$request->created_at;
+        
+          $addressdetail->updated_at=$request->created_at;
+        
+
           $addressdetail->save();
 
 
@@ -130,9 +139,12 @@ class DetailsController extends Controller
 
           $otherdetail->customer_id=$identitydetail->id;
 
-          $otherdetail->group_id=$gid;
+          $otherdetail->group_id=0;
 
-
+          $otherdetail->created_at=$request->created_at;
+        
+          $otherdetail->updated_at=$request->created_at;
+        
 
           $otherdetail->save();
 

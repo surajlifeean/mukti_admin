@@ -230,7 +230,7 @@
     </select>
 
     <p class="others"></p>
-{{Form::label('created_at','Registration Date:')}}
+{{Form::label('created_at','Registration Date:')}}(mm/dd/yy)
 {{Form::date('created_at', \Carbon\Carbon::now()),array('class'=>'form-control','required'=>'')}}
 
 <h3>Address Details</h3>
