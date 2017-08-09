@@ -14,6 +14,8 @@ use App\otherdetail;
 
 use App\document;
 
+use App\loan_allotment;
+
 use Image;
 
 use Illuminate\Http\Request;
@@ -92,8 +94,6 @@ class DetailsController extends Controller
 
         $identitydetail->save();
 
-          $gid = session('groupid');
-                
 
         $addressdetail =new addressdetail;
 
@@ -135,7 +135,9 @@ class DetailsController extends Controller
           
             
 
-          $otherdetail->registered_by=Auth::user()->name;
+        //  $otherdetail->registered_by=Auth::user()->name;
+
+          $otherdetail->registered_by='admin';
 
           $otherdetail->customer_id=$identitydetail->id;
 
@@ -215,15 +217,63 @@ class DetailsController extends Controller
      */
     public function show($id)
     {
-        //
+
+    
+          $loan_allotments=loan_allotment::find($id);
+            if(count($loan_allotments)){
+    $customerdetails=identitydetail::select('identitydetails.id', 'name', 'gardian', 'relation', 'gender', 'marital_status',
+          'pan_no', 'aadhar_no', 'idproof', 'dob', 'identitydetails.created_at', 'identitydetails.updated_at', 'address', 'city','pin','country',
+         'state', 'group_id', 'phone_no','loan_alloted','status',
+         'addressproof', 'salary', 'occupation','registered_by')
+        ->join('addressdetails','identitydetails.id','=','addressdetails.customer_id')
+        ->join('otherdetails','identitydetails.id','=','otherdetails.customer_id')
+        ->join('loan_allotments','identitydetails.id','=','loan_allotments.customer_id')
+        ->where('identitydetails.id','=',$id)
+        ->first();
+        }
+        else{
+          $customerdetails=identitydetail::select('identitydetails.id', 'name', 'gardian', 'relation', 'gender', 'marital_status',
+          'pan_no', 'aadhar_no', 'idproof', 'dob', 'identitydetails.created_at', 'identitydetails.updated_at', 'address', 'city','pin',
+         'state', 'group_id', 'phone_no','loan_alloted',
+         'addressproof', 'salary', 'occupation','registered_by')
+        ->join('addressdetails','identitydetails.id','=','addressdetails.customer_id')
+        ->join('otherdetails','identitydetails.id','=','otherdetails.customer_id')
+        ->where('identitydetails.id','=',$id)
+        ->first();   
+        }
+
+
+    
+        $imag=document::where('documents.customer_id','=',$customerdetails->id)->first();
+
+         if(count($imag))
+            $img=$imag->image;
+         else
+            $img="default-user.png";
+
+
+
+
+        $name=explode(" ",$customerdetails->name);
+        //echo $name[1];
+        $f=substr($name[0],0,1); 
+        $l=substr($name[1],0,1); 
+        
+        $adhno=substr($customerdetails->aadhar_no,8,4);
+        
+        $adhno=$adhno*10000+$customerdetails->id;
+
+        $custid=$f.$l.$adhno;
+
+        
+        
+   return view('Customer.show')->withCustdetails($customerdetails)->withImg($img)->withGenid($custid);
+
+    
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
         //

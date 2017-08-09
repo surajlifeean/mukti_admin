@@ -24,7 +24,12 @@ Route::resource('customers','customers');
 
 Route::resource('customerdetails','DetailsController');
 
+Route::resource('group','GroupController');
+
 Route::get('/download','DownloadcsvController@download');
+
+
+Route::get('/report','DownloadcsvController@showdownloadpage');
 
 Route::get('/register', 'customers@create');
 

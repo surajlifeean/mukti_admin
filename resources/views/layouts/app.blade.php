@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Mukti_Admin') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -33,67 +33,152 @@
     <!-- Custom Fonts -->
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!--ends here-->
-    
+
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+
+  <link href="css/select2.css" rel="stylesheet" />
+<script src="js/select2.js"></script>
+@yield('stylesheet')
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
+    <div id="wrapper">
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse " role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Admin</a>
+        </div>
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
+        <!-- Top Navigation: Left Menu -->
+        <ul class="nav navbar-nav navbar-left navbar-top-links">
+            <li><a href="http://www.janmukti.com"><i class="fa fa-home fa-fw"></i> Website</a></li>
+        </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                                    @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
+        <!-- Top Navigation: Right Menu -->
+        <ul class="nav navbar-right navbar-top-links">
+            <li class="dropdown navbar-inverse">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-bell fa-fw"></i> <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu dropdown-alerts">
+                    <li>
+                        <a href="#">
+                            <div>
+                                <i class="fa fa-comment fa-fw"></i> New Comment
+                                <span class="pull-right text-muted small">4 minutes ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a class="text-center" href="#">
+                            <strong>See All Alerts</strong>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             Logout
-                                        </a>
+                                        </a>            </li>
+        </ul>
+        <!-- Sidebar -->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
+                <ul class="nav" id="side-menu">
+                    <li class="sidebar-search">
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    </li>
+                     <li>
+                          <a href="#"><i class="fa fa-sitemap fa-fw"></i> Options<span class="fa arrow"></span></a>
+                          <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{{route('customers.index')}}">Bulk Upload</a>
+                            </li>
+                            <li>
+                                <a href="{{url('/report')}}">Download Report</a>
+                            </li>
+                            <li>
+                                <a href="{{route('customerdetails.index')}}">View Customers</a>
+                            </li>
+                            <li>
+                                <a href="{{url('/register')}}">Register Customers</a>
+                            </li>
+
+                           </ul>
+                            <li>
+                                <a href="#">Finance <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="#">Daily Cash Book</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Bank Deposit Report</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Dividend Report</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Revenue Report</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Expenses Report</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Capital Inflow Report</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Daily Cash Book</a>
                                     </li>
                                 </ul>
                             </li>
-                        @endif
-                    </ul>
-                </div>
+                             <li>
+                                <a href="#">Groups<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="#">View Groups</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{route('group.index')}}">Create Groups</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        
+                    </li>
+                </ul>
+
             </div>
-        </nav>
+        </div>
+
+    <!-- Page Content -->
+    </nav>
+</div>
 
         @yield('content')
-    </div>
+
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
@@ -112,5 +197,6 @@
 <!-- Custom Theme JavaScript -->
 <script src="js/startmin.js"></script>
 
+  @yield('script')
 </body>
 </html>

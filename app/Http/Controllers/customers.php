@@ -44,7 +44,7 @@ class customers extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //store csv file into database
        // dd($request);
         $upload=$request->file('upload-file');
         $filePath=$upload->getRealPath();
@@ -171,8 +171,8 @@ $output=implode(',', $output);
     public function show($id)
     {
         //
-    }
 
+          }
     /**
      * Show the form for editing the specified resource.
      *

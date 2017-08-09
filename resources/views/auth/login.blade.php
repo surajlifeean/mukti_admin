@@ -1,6 +1,68 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="{{ config('app.locale') }}">
+<head>
 
-@section('content')
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>Mukti</title>
+
+          <!-- code for date picker-->
+
+
+      <!-- code for date picker-->
+
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+
+      
+
+        <!-- datepicker -->
+        
+<script src="{{ asset('js/app.js') }}"></script>
+          
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+       
+
+        <!--datepicker link-->
+
+<!--Bootstrap Carousel <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+    img {
+    display: block;
+    margin: auto;
+    width: 40%;
+}
+  </style>
+
+
+<!--Bootstrap Carousel-->
+
+        
+
+    <!-- Scripts -->
+
+    <script>
+        window.Laravel = {!! json_encode([
+            'csrfToken' => csrf_token(),
+        ]) !!};
+    </script>
+</head>
+<body>
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -65,4 +127,5 @@
         </div>
     </div>
 </div>
-@endsection
+</body>
+</html>
