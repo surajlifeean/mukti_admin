@@ -1,3 +1,4 @@
+{{dump($groups)}}
 @extends('layouts.app')
 
 @section('content')
@@ -21,12 +22,12 @@
                      <i class="glyphicon glyphicon-tags"></i>
                 </div>
                 <div class="text">
-                    <var>73</var>
-                    <label class="text-muted">total orders</label>
+                    
+                    <label class="text-muted">{{$count}} Total Customers</label>
                 </div>
-                <div class="options">
+                <!--div class="options">
                     <a href="javascript:;" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> View orders</a>
-                </div>
+                </div-->
             </div>
   </div>
   <div class="col-sm-4">
@@ -35,12 +36,12 @@
                      <i class="glyphicon glyphicon-user"></i>
                 </div>
                 <div class="text">
-                    <var>3</var>
-                    <label class="text-muted">invited guests</label>
+                    
+                    <label class="text-muted">{{$due}} Due Premium</label>
                 </div>
-                <div class="options">
+                <!--div class="options">
                     <a href="javascript:;" class="btn btn-primary btn-lg"><i class="glyphicon glyphicon-plus"></i> Add a guest</a>
-                </div>
+                </div-->
             </div>      
 </div>
   <div class="col-sm-4">
@@ -50,12 +51,11 @@
                      <i class="glyphicon glyphicon-star"></i>
                 </div>
                 <div class="text">
-                    <var>614</var>
-                    <label class="text-muted">page likes</label>
+                 <label class="text-muted">{{$groups}} Groups</label>
                 </div>
-                <div class="options">
+                <!--div class="options">
                     <a href="javascript:;" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> View traffic</a>
-                </div>
+                </div-->
             </div>
   </div>
 </div>
